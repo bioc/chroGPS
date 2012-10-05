@@ -19,7 +19,7 @@
 
 \begin{document}
 
-\title{\texttt{chroGPS}: navigating though the epigenome. }
+\title{\texttt{chroGPS}: navigating through the epigenome. }
 \small
 \author{Oscar Reina \footnote{Bioinformatics \& Biostatistics Unit,
     IRB Barcelona} and David Rossell \footnotemark[1] }
