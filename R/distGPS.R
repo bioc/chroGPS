@@ -49,7 +49,7 @@ setMethod("distGPS", signature(x='GRangesList'), function(x, metric='tanimoto', 
 ### tanipair <- function(z1,z2) { # Not exactly tanimoto, deprecated
 ###   n1 <- sum(sum(z1 %in% z2))
 ###   n2 <- sum(sum(z2 %in% z1))
-###   (n1+n2)/(nrow(z1)+nrow(z2))
+###   (n1+n2)/(length(z1)+length(z2))
 ### }
 
 realtanipair <- function(z1,z2) { # REAL tanimoto pair
@@ -58,7 +58,7 @@ realtanipair <- function(z1,z2) { # REAL tanimoto pair
   #n2 <- sum(sum(z2 %in% z1))
   n1 <- sum(sum(z1 %over% z2))
   n2 <- sum(sum(z2 %over% z1))
-  (.5*(n1+n2))/(nrow(z1)+nrow(z2) - (.5*(n1+n2)))
+  (.5*(n1+n2))/(length(z1)+length(z2) - (.5*(n1+n2)))
 }
 
 avgdistpair <- function(z1,z2) {
@@ -67,19 +67,19 @@ avgdistpair <- function(z1,z2) {
   #n2 <- sum(sum(z2 %in% z1))
   n1 <- sum(sum(z1 %over% z2))
   n2 <- sum(sum(z2 %over% z1))
-  .5*(n1/nrow(z1) + n2/nrow(z2))
+  .5*(n1/length(z1) + n2/length(z2))
 }
 
 realtanipair.old <- function(z1,z2) { # REAL tanimoto pair
   n1 <- sum(sum(z1 %in% z2))
   n2 <- sum(sum(z2 %in% z1))
-  (.5*(n1+n2))/(nrow(z1)+nrow(z2) - (.5*(n1+n2)))
+  (.5*(n1+n2))/(length(z1)+length(z2) - (.5*(n1+n2)))
 }
 
 avgdistpair.old <- function(z1,z2) {
   n1 <- sum(sum(z1 %in% z2))
   n2 <- sum(sum(z2 %in% z1))
-  .5*(n1/nrow(z1) + n2/nrow(z2))
+  .5*(n1/length(z1) + n2/length(z2))
 }
 
 # This is an alternative function for the chisquare distance since 'chisqdist' gave some problems. In the end the problems came from having a session with GenomicRanges loaded after chroGPS
@@ -124,6 +124,8 @@ rdldist <- function(x,metric,genomelength=NULL,mc.cores=1) {
     d <- lapply(index,function(z) distfun(x[[z[1]]], x[[z[2]]]))  
   }
   #Build distance matrix
+  #print(index)
+  #print(d)
   ans <- matrix(NA,nrow=length(x),ncol=length(x))
   for (i in 1:length(index)) ans[index[[i]][1],index[[i]][2]] <- ans[index[[i]][2],index[[i]][1]] <- 1-d[[i]]
   diag(ans) <- 0
