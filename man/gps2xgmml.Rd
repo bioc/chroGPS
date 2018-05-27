@@ -10,7 +10,7 @@
   (http://wiki.cytoscape.org/Cytoscape_3/3D_Renderer) is required.
 }
 \usage{
-gps2xgmml(x, fname='out.xgmml', names.arg, fontSize=4, col=col2hex('steelblue'), cex)
+gps2xgmml(x, fname='out.xgmml', names.arg, fontSize=4, col=gplots::col2hex('steelblue'), cex)
 }
 \arguments{
   \item{x}{Object of class \code{mds}}

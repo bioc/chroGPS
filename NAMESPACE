@@ -1,17 +1,25 @@
 import(GenomicRanges,DPpackage,ICSNP,changepoint,Biobase,MASS,methods)
 importFrom(cluster, agnes)
-#importFrom(graphics, plot)
-#importFrom(changepoint, cpt.mean, cpt.var)
-#importFrom(gplots, col2hex, heatmap.2)
-exportMethods(distGPS,procrustesAdj,adjustPeaks,mds,clusGPS,mergeClusters,geneSetGPS,plot,gps2xgmml,clusNames,tabClusters,clusterID,getR2,getStress,getPoints,is.adj,as.matrix)
-export(adjustPeaks,distGPS,procrustesAdj,clusGPS,mergeClusters,profileClusters,mds,geneSetGPS,domainDist,addVar,uniqueCount,contour2dDP,plotContour,getURL,gff2RDList,boostMDS)
+##importFrom(graphics, plot)
+##importFrom(changepoint, cpt.mean, cpt.var)
+##importFrom(gplots, col2hex, heatmap.2)
+importFrom("graphics", "abline", "arrows", "axis", "barplot",
+             "boxplot", "contour", "filled.contour", "legend", "par",
+             "points", "segments", "text")
+importFrom("grDevices", "colors", "heat.colors", "rainbow", "rgb",
+             "terrain.colors")
+importFrom("stats", "as.dist", "as.hclust", "binomial", "chisq.test",
+             "cmdscale", "cor", "cov", "cutree", "dist", "fisher.test",
+             "fitted", "glm", "hclust", "lm", "mahalanobis", "na.omit",
+             "p.adjust", "predict", "quantile", "residuals", "var",
+             "weighted.mean")
+importFrom("utils", "download.file", "installed.packages", "read.csv",
+             "read.table", "tail")
+importFrom("ellipse", "ellipse")
+importFrom("vegan", "procrustes")
+importFrom("IRanges","%over%")
+exportMethods(distGPS,procrustesAdj,adjustPeaks,mds,clusGPS,mergeClusters,geneSetGPS,plot,gps2xgmml,clusNames,tabClusters)
+exportMethods(clusterID,getR2,getStress,getPoints,is.adj,as.matrix,mergeReplicates,rankFactorsbyDomain)
+export(adjustPeaks,distGPS,procrustesAdj,clusGPS,mergeClusters,profileClusters,mds,geneSetGPS,domainDist,addVar,uniqueCount)
+export(contour2dDP,plotContour,getURL,gff2RDList,boostMDS,mergeReplicates,diffFactors,diffGenes,rankFactorsbyProfile,combineGenesMatrix)
 exportClasses("mds","distGPS","clusGPS","hclust")
-  importFrom("graphics", "abline", "arrows", "axis", "boxplot",
-                          "contour", "filled.contour", "points", "text")
-  importFrom("grDevices", "colors", "rainbow", "terrain.colors")
-  importFrom("stats", "as.dist", "as.hclust", "chisq.test", "cmdscale",
-                          "cor", "cov", "cutree", "dist", "fitted", "hclust", "lm",
-                          "mahalanobis", "na.omit", "quantile", "var",
-                          "weighted.mean")
-  importFrom("utils", "download.file", "installed.packages", "read.csv",
-                          "read.table", "tail")

@@ -45,8 +45,8 @@ function(filenames,listnames=NULL,dir,quote=NULL,chrprefix='')
         gff <- gffRead(file.path(dir,gfffiles[i])) # Read GFF file
         gff.pos <-  subset(gff,score>0) # To keep enriched regions only
         gff.neg <-  subset(gff,score<0) # To keep depleted regions only
-        rd.pos <- GRanges(GenomicRanges(start=gff.pos$start,end=gff.pos$end),space=paste(chrprefix,gff.pos$seqname,sep=''),score=as.numeric(gff.pos$score),ID=getAttributeField(gff.pos$attributes,'ID'))
-        rd.neg <- GRanges(GenomicRanges(start=gff.neg$start,end=gff.neg$end),space=paste(chrprefix,gff.neg$seqname,sep=''),score=as.numeric(gff.neg$score),ID=getAttributeField(gff.neg$attributes,'ID'))
+        rd.pos <- GRanges(data.frame(start=gff.pos$start,end=gff.pos$end),space=paste(chrprefix,gff.pos$seqname,sep=''),score=as.numeric(gff.pos$score),ID=getAttributeField(gff.pos$attributes,'ID'))
+        rd.neg <- GRanges(data.frame(start=gff.neg$start,end=gff.neg$end),space=paste(chrprefix,gff.neg$seqname,sep=''),score=as.numeric(gff.neg$score),ID=getAttributeField(gff.neg$attributes,'ID'))
         res.pos[[i]] <- rd.pos
         res.neg[[i]] <- rd.neg
       }

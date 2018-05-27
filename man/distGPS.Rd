@@ -4,7 +4,6 @@
 \alias{distGPS,GRangesList-method}
 \alias{distGPS,data.frame-method}
 \alias{distGPS,matrix-method}
-\alias{as.matrix,distGPS-method}
 \alias{splitDistGPS,data.frame-method}
 \alias{splitDistGPS,matrix-method}
 \alias{uniqueCount}
@@ -43,6 +42,10 @@ This function collapses a chroGPS-genes matrix or data frame so that
 elements with the same combination of variables are aggregated into a
 single entry. Elements become then identified by their unique pattern
 and a frequency count is also returned.
+
+as.matrix:
+
+Returns the raw distance matrix within the object.
 
 }}
 \usage{

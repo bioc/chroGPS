@@ -31,7 +31,8 @@ contour2dDP <- function(x, ngrid, grid=NULL, probContour=0.5,xlim,ylim,labels=''
   s2 <- var(x); m2 <- colMeans(x); psiinv2 <- solve(s2)
   prior <- list(a0=1,b0=1/5,nu1=4,nu2=4,s2=s2,m2=m2,psiinv2=psiinv2,tau1=0.01,tau2=0.01)
   mcmc <- list(nburn=500,nsave=1000,nskip=1,ndisplay=1001)
-  fit1 <- DPdensity(y=x,ngrid=ngrid,grid=grid,prior=prior,mcmc=mcmc,state=state,status=TRUE,na.action=na.omit,method='neal')
+  #fit1 <- DPdensity(y=x,ngrid=ngrid,grid=grid,prior=prior,mcmc=mcmc,state=state,status=TRUE,na.action=na.omit,method='neal')
+  fit1 <- DPdensity(y=x,ngrid=ngrid,grid=grid,prior=prior,mcmc=mcmc,status=TRUE,na.action=na.omit,method='neal',...)
   #Select set of points with probContour probability
   prob <- fit1$dens/sum(fit1$dens)
   probo <- prob[order(prob)]
@@ -130,9 +131,9 @@ setMethod("plot", signature(x="mds"), function(x,drawlabels=FALSE,labels,plantar
     }
     else {
       if ('rgl' %in% loadedNamespaces()) {
-        plot3d(x@points, type='p', radius=radius, xlim=xlim,ylim=ylim,zlim=xlim,xlab='',ylab='',zlab='', col=point.col, cex=point.cex, alpha=0.5, ...) # point.cex/(2*nrow(x@points))
-        if (drawlabels) text3d(x@points[,1],x@points[,2],x@points[,3],texts=labels, col=text.col, cex=text.cex, pos=text.pos,...) # Draw labels before spheres to make them visible
-        if (type.3d=='s') spheres3d(x@points, radius=radius, xlim=xlim,ylim=xlim,zlim=xlim,xlab='',ylab='',zlab='', col=point.col, cex=point.cex, alpha=0.5, ...) # point.cex/(2*nrow(x@points))
+        rgl::plot3d(x@points, type='p', radius=radius, xlim=xlim,ylim=ylim,zlim=xlim,xlab='',ylab='',zlab='', col=point.col, cex=point.cex, alpha=0.5, ...) # point.cex/(2*nrow(x@points))
+        if (drawlabels) rgl::text3d(x@points[,1],x@points[,2],x@points[,3],texts=labels, col=text.col, cex=text.cex, pos=text.pos,...) # Draw labels before spheres to make them visible
+        if (type.3d=='s') rgl::spheres3d(x@points, radius=radius, xlim=xlim,ylim=xlim,zlim=xlim,xlab='',ylab='',zlab='', col=point.col, cex=point.cex, alpha=0.5, ...) # point.cex/(2*nrow(x@points))
         #if (type.3d=='spheres') spheres3d(x@points, xlim=xlim,ylim=ylim,zlim=xlim,xlab='',ylab='',zlab='', col=point.col, radius=point.cex/(2*nrow(x@points)),alpha=alpha,front='fill',back='fill',...)
       } else stop('rgl library has not been loaded!')
     }

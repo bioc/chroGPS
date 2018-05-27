@@ -1,5 +1,5 @@
-setGeneric("gps2xgmml", function(x, fname='out.xgmml', names.arg, fontSize=4, col=col2hex('steelblue'), cex) standardGeneric("gps2xgmml"))
-setMethod("gps2xgmml", signature(x='mds'), function(x, fname="out.xgmml", names.arg, fontSize=4, col=col2hex('steelblue'), cex) {
+setGeneric("gps2xgmml", function(x, fname='out.xgmml', names.arg, fontSize=4, col=gplots::col2hex('steelblue'), cex) standardGeneric("gps2xgmml"))
+setMethod("gps2xgmml", signature(x='mds'), function(x, fname="out.xgmml", names.arg, fontSize=4, col=gplots::col2hex('steelblue'), cex) {
   if (ncol(x@points)==2) {
     xgmml2d(100*x@points, fname=fname, names.arg=names.arg, fontSize=fontSize, col=col, cex=cex)
   } else if (ncol(x@points==3)) {
@@ -7,7 +7,6 @@ setMethod("gps2xgmml", signature(x='mds'), function(x, fname="out.xgmml", names.
   }
 }
 )
-
 
 #Export 2-dimensional MDS to XGMML
 xgmml2d <- function(x, fname, names.arg, fontSize, col, cex) {
@@ -25,7 +24,7 @@ xgmml2d <- function(x, fname, names.arg, fontSize, col, cex) {
   #Header and general description
   attrs <- list("chroGPS", "http://purl.org/dc/elements/1.1", "http://www.w3.org/1999/xlink", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "http://www.cytoscape.org", "http://www.cs.rpi.edu/XGMML")
   names(attrs) <- c('label','xmlns:dc','xmlns:xlink','xmlns:rdf','xmlns:cy','xmlns')
-  out <- xmlOutputDOM(tag="graph", attrs=attrs)
+  out <- XML::xmlOutputDOM(tag="graph", attrs=attrs)
   #out <- xmlOutputDOM(tag="graph", attrs=attrs, xmlDeclaration=TRUE)
   out$addTag(tag="att", attrs=list(name="documentVersion",value="1.1"))
   out$addTag(tag="att", attrs=list(name="networkMetadata"), close=FALSE)
@@ -56,7 +55,7 @@ xgmml2d <- function(x, fname, names.arg, fontSize, col, cex) {
     out$closeTag("") #node
   }
   out$closeTag("graph") #graph
-  saveXML(out$value(), file=fname)
+  XML::saveXML(out$value(), file=fname)
 }
 
 
@@ -78,7 +77,7 @@ xgmml3d <- function(x, fname, names.arg, fontSize, col, cex) {
   #Header and general description
   attrs <- list("chroGPS", "http://purl.org/dc/elements/1.1", "http://www.w3.org/1999/xlink", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "http://www.cytoscape.org", "http://www.cs.rpi.edu/XGMML")
   names(attrs) <- c('label','xmlns:dc','xmlns:xlink','xmlns:rdf','xmlns:cy','xmlns')
-  out <- xmlOutputDOM(tag="graph", attrs=attrs)
+  out <- XML::xmlOutputDOM(tag="graph", attrs=attrs)
   out$addTag(tag="att", attrs=list(name="documentVersion",value="1.1"))
   out$addTag(tag="att", attrs=list(name="networkMetadata"), close=FALSE)
     out$addTag(tag="rdf:RDF", close=FALSE)
@@ -142,5 +141,5 @@ xgmml3d <- function(x, fname, names.arg, fontSize, col, cex) {
     out$closeTag("") #node
   }
   out$closeTag("graph") #graph
-  saveXML(out$value(), file=fname)
+  XML::saveXML(out$value(), file=fname)
 }

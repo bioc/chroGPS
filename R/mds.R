@@ -143,6 +143,7 @@ setGeneric("mds", function(d,m=NULL,k=2,type='classic',add=FALSE,cor.method='pea
 setMethod("mds", signature=c(d="distGPS",m="missing"),
           function(d,m=NULL,k=2,type='classic',add=FALSE,cor.method='pearson',splitMDS=FALSE,split=0.26,overlap=0.025,stepSize=0.01,reshuffle=TRUE,set.seed=149,mc.cores=1,...) {
   metric <- d@metric
+  idx <- rownames(d@d)
   #maptype <- d@type
   if (splitMDS)
     {
@@ -187,7 +188,8 @@ setMethod("mds", signature=c(d="distGPS",m="missing"),
   stress <- ifelse(nrow(d)==2, 1, stress(d[upper.tri(d)],dapprox[upper.tri(dapprox)]))
   # Revert possible reshuffling in mds elements
   # if (splitMDS==TRUE) if ((rownames(d)!=NULL) & (unique(rownames(ans) %in% rownames(d))==TRUE)) ans <- ans[rownames(d),]
-  new("mds", points=ans, Type=type, Adj=FALSE, R.square=R.square, stress=stress)
+  #new("mds", points=ans, Type=type, Adj=FALSE, R.square=R.square, stress=stress)
+  new("mds", points=ans[idx,], Type=type, Adj=FALSE, R.square=R.square, stress=stress)
 }
 )
 

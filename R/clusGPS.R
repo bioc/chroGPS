@@ -257,7 +257,8 @@ setMethod("clusGPS", signature=c(d='distGPS',m='mds'),
               if (length(k)>1) cat("Calculating posterior density of mis-classification for cluster:",y)
               else if (length(minpoints)>1) cat("Calculating posterior density of mis-classification for cluster:",y)
               else cat("Calculating posterior density of mis-classification for cluster:",y)
-            contour2dDP(mpoints,grid=grid,xlim=range(mpoints),ylim=range(mpoints),contour.type='none',...)
+            ##contour2dDP(mpoints,grid=grid,xlim=range(mpoints),ylim=range(mpoints),contour.type='none',...)
+            contour2dDP(mpoints,grid=grid,xlim=range(mpoints),ylim=range(mpoints),contour.type='none')
           },mc.cores=mc.cores,mc.preschedule=FALSE)
         }
         else stop('parallel library has not been loaded!')
@@ -268,12 +269,13 @@ setMethod("clusGPS", signature=c(d='distGPS',m='mds'),
             if (length(k)>1) cat("Calculating posterior density of mis-classification for cluster:",y)
             else if (length(minpoints)>1) cat("Calculating posterior density of mis-classification for cluster:",y)
             else cat("\nCalculating posterior density of mis-classification for cluster:",y)
-          contour2dDP(mpoints,grid=grid,xlim=range(mpoints),ylim=range(mpoints),contour.type='none',...)
+          ##contour2dDP(mpoints,grid=grid,xlim=range(mpoints),ylim=range(mpoints),contour.type='none',...)
+          contour2dDP(mpoints,grid=grid,xlim=range(mpoints),ylim=range(mpoints),contour.type='none')
         })
       }
       names(pden) <- as.character(idx) #DPdensity object for each cluster in the partition for k=x where ngenes >= minpoints
-      probs <- lapply(pden,function(x) x$dens) # Posterior density for each element in clusters 1:k in the partition for k=x
-      # New assignation of mds points to gridpoints, now valid for regular and irregular grids
+      probs <- lapply(pden,function(x) { x$dens }) # Posterior density for each element in clusters 1:k in the partition for k=x
+      ## New assignation of mds points to gridpoints, now valid for regular and irregular grids
       normx <- unlist(lapply(m@points[,1],function(x) sum(x>grid[,1])+1))
       normy <- unlist(lapply(m@points[,2],function(x) sum(x>grid[,2])+1))
       normpoints <- cbind(normx,normy)
@@ -414,7 +416,7 @@ normCoords <- function(coords,newrange)
 ###     cprop
 ###   }
 
-profileClusters <- function(x,uniqueCount=TRUE,weights,clus,i,minpoints,merged=FALSE,log2=TRUE,plt=FALSE)
+profileClusters.old <- function(x,uniqueCount=TRUE,weights,clus,i,minpoints,merged=FALSE,log2=TRUE,plt=FALSE)
   # Computes enrichment or depletion of marks in a given cluster
   # X is table with epigenes / factors, h is a valid clustering for that matrix, k is a cluster cut configuration
   # n is used to consider only clusters with more than or n points, 0 for all points
@@ -523,7 +525,7 @@ setMethod("mergeClusters", signature=c(clus="list"), function (clus, clus.method
     if (doMerge) { mclus[[z]] <- clus; z <- z + 1 }
   }
   # Computing changepoint to identify 'cliff' in the maximum overlap between all possible pairwise merging
-  if (cpt.method == "mean") cpt <- cpt.mean(log(maxOverlap),Q=1) else if (changepoint::cpt.method == "var") cpt <- changepoint::cpt.var(log(maxOverlap),Q=1)
+  if (cpt.method == "mean") cpt <- cpt.mean(log(maxOverlap),Q=1) else if (cpt.method == "var") cpt <- changepoint::cpt.var(log(maxOverlap),Q=1)
   mycpt <- maxOverlap[[cpt@cpts[1] - brake]]
   mycpt.auto <- maxOverlap[[cpt@cpts[1] - 1]]
   if (plt==TRUE) {

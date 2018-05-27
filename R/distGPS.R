@@ -7,9 +7,11 @@ setMethod("show","distGPS",function(object) {
 }
 )
 
+setGeneric("as.matrix", function(x) standardGeneric("as.matrix"))
+
 ## as.matrix
-setMethod("as.matrix",signature(x="distGPS"),function(x) {
-  as.matrix(x@d)
+setMethod("as.matrix","distGPS",function(x) {
+    x@d
 }
 )
 
@@ -136,7 +138,7 @@ rdldist <- function(x,metric,genomelength=NULL,mc.cores=1) {
 chisqdist2 <- function(x,seqlen=NULL,mc.cores=1)
   {
     if (is.null(seqlen)) seqlen <- sum(apply(do.call(rbind,lapply(x,function(z) do.call(cbind,lapply(names(z),function(t) max(end(z[t])))))),2,max))
-    ans <- do.call(rbind,mclapply(x,function(y) lapply(x, function(z) {
+    ans <- do.call(rbind,parallel::mclapply(x,function(y) lapply(x, function(z) {
       mnames <- intersect(names(y),names(z)) # Matching names
       only.y <- setdiff(names(y),names(z))
       only.z <- setdiff(names(z),names(y))
@@ -342,6 +344,7 @@ setMethod("distGPS", signature(x='matrix'), function(x, metric='tanimoto', weigh
 uniqueCount <- function(x) {
 # Internal function to perform row clustering and MDS
   #Find unique rows, count the appearance of each and paste all columns into a single column
+  u <- NULL # to make it visible
   txt <- paste("u <- paste(",paste("x[,",1:ncol(x),"]",collapse=","),", sep=',')",sep="")
   eval(parse(text=txt))
   n <- data.frame(table(u))
