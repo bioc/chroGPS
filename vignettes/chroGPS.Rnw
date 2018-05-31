@@ -920,8 +920,9 @@ domains$Domain <- color2domain[domains$Color]
 rownames(domains) <- domains$Factor
 
 # Compute distances
-d.s2 <- distGPS(GRangesList(s2.repset),metric='avgdist',mc.cores=8)
-d.bg3 <- distGPS(GRangesList(bg3.repset),metric='avgdist',mc.cores=8)
+mc.cores <- ifelse('parallel' %in% loadedNamespaces(),8,1)
+d.s2 <- distGPS(GRangesList(s2.repset),metric='avgdist',mc.cores=mc.cores)
+d.bg3 <- distGPS(GRangesList(bg3.repset),metric='avgdist',mc.cores=mc.cores)
 @ 
 
 \normalsize
@@ -945,7 +946,7 @@ s2.alt <- s2.repset
 df1 <- as.data.frame(s2.repset[['GAF']])[sample(1:(length(s2.repset[['GAF']])/2)),]
 df2 <- as.data.frame(s2.repset[['HP1B']])[sample(1:(length(s2.repset[['HP1B']])/2)),]
 s2.alt[['EZ']] <- GRanges(rbind(df1,df2))
-d.s2.alt <- distGPS(GRangesList(s2.alt),metric='avgdist',mc.cores=12)
+d.s2.alt <- distGPS(GRangesList(s2.alt),metric='avgdist',mc.cores=mc.cores)
 # Plot S2 vs BG3
 par(las=1,mar=c(4,8,4,4))
 mycors1 <- rev(diag(cor(as.matrix(d.s2),as.matrix(d.bg3))))
@@ -997,13 +998,13 @@ HP1a repression considering a subset of 4 different factors.\\
 
 data(s2)
 data(toydists)
-#d <- distGPS(s2,metric='avgdist',mc.cores=8) # Compute distances
+#d <- distGPS(s2,metric='avgdist',mc.cores=mc.cores) # Compute distances
 rownames(s2names) <- s2names$ExperimentName
 
 # Known domains
 # Call rankFactorsbyDomain for HP1a repression domain, select a combination of 4 factors
 library(caTools)
-rank.factors.4 <- rankFactorsbyDomain(d,s2names,ranktype='domainDist',selName='Color',selValue='lightblue',k=3,mc.cores=4) # Test HP1a repression
+rank.factors.4 <- rankFactorsbyDomain(d,s2names,ranktype='domainDist',selName='Color',selValue='lightblue',k=3,mc.cores=mc.cores) # Test HP1a repression
 ddd <- as.data.frame(do.call(rbind,lapply(rank.factors.4,unlist)))
 ddd <- ddd[order(ddd$intra,decreasing=FALSE),]
 head(ddd)
@@ -1022,7 +1023,7 @@ computation or reducing the number of iterations if computing power is limited.\
 
 <<figrankFactorsbyDomain2>>=>>=
 # Unknown domains
-glm.rank <- rankFactorsbyProfile(s2.tab,ranktype='glm',glm.threshold=0.75,mc.cores=8)
+glm.rank <- rankFactorsbyProfile(s2.tab,ranktype='glm',glm.threshold=0.75,mc.cores=mc.cores)
 
 # Returned objects are lists named by the factor with highest prediction accuracy in each interation, as well as the rest, let's generate a matrix
 library(gtools)
@@ -1059,10 +1060,10 @@ of Origins of Replication regions we just loaded. This can be easily performed u
 # Intersect s2 with repliSeq, filter peaks by overlap with origin set
 # Assuming the 'orig' objects is a RangedDataList with modEncode S2 origins of Replication for Early to Late timepoints
 # Assuming S2 has the 'full' S2 dataset used in Font-Burgada et al. 2014
-#s2.origs <- lapply(orig,function(o) GRangesList(mclapply(as.list(s2),function(x) x[x %over% o,],mc.cores=8)))
+#s2.origs <- lapply(orig,function(o) GRangesList(mclapply(as.list(s2),function(x) x[x %over% o,],mc.cores=mc.cores)))
 
 # Make distance sets
-#d.origs <- lapply(s2.origs,function(x) distGPS(x,metric='avgdist',mc.cores=12))
+#d.origs <- lapply(s2.origs,function(x) distGPS(x,metric='avgdist',mc.cores=mc.cores))
 #m.origs <- lapply(d.origs,mds,type='isoMDS')
 
 # Now load precomputed data
@@ -1165,13 +1166,13 @@ providing us with an intuitive method to select potential candidate genes for fu
 # Build map and cluster as always
 # d <- distGPS(x,metric='tanimoto',uniqueRows=TRUE)
 
-# m <- mds(d,type='classic',splitMDS=TRUE,split=0.16,mc.cores=4)
-# mm <- mds(d,m,type='boostMDS',samplesize=0.005,mc.cores=6)
+# m <- mds(d,type='classic',splitMDS=TRUE,split=0.16,mc.cores=mc.cores)
+# mm <- mds(d,m,type='boostMDS',samplesize=0.005,mc.cores=mc.cores)
 
 # Cluster
 # h <- hclust(as.dist(d@d),method='average')
-# clus <- clusGPS(d,mm,h,k=max(cutree(h,h=0.5)),ngrid=10000,mc.cores=8,recalcDist=FALSE,verbose=FALSE)
-# clus.merged <- mergeClusters(clus,brake=0,mc.cores=8)
+# clus <- clusGPS(d,mm,h,k=max(cutree(h,h=0.5)),ngrid=10000,mc.cores=mc.cores,recalcDist=FALSE,verbose=FALSE)
+# clus.merged <- mergeClusters(clus,brake=0,mc.cores=mc.cores)
 # clus
 # clus.merged
 
@@ -1193,7 +1194,7 @@ factors mapped in both conditions will be taken into account (and therefore, onl
 
 <<figdiffGenes2>>=>>=
 # Perform differential analysis
-# x.diff <- diffGenes(x,mm,clus.merged,label.x='S2',label.y='BG3',clusName=clusNames(clus.merged)[1],fdr=TRUE,mc.cores=8)
+# x.diff <- diffGenes(x,mm,clus.merged,label.x='S2',label.y='BG3',clusName=clusNames(clus.merged)[1],fdr=TRUE,mc.cores=mc.cores)
 
 # Select genes changing clusters with FDR 0.05
 # xx.diff <- x.diff[x.diff$ClusID.S2!=x.diff$ClusID.BG3 & x.diff$FDR.S2<0.25 & x.diff$FDR.BG3<0.25,]
