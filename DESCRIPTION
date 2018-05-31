@@ -1,8 +1,8 @@
 Package: chroGPS
 Type: Package
 Title: chroGPS 2.0: Generation, visualization and differential analysis of epigenome maps
-Version: 1.99.0
-Date: 2018-04-10
+Version: 1.99.1
+Date: 2018-05-31
 Author: Oscar Reina, David Rossell
 Maintainer: Oscar Reina <oscar.reina@irbbarcelona.org>
 Description: We provide intuitive maps to visualize the association between genetic elements, with emphasis on epigenetics. The approach is based on Multi-Dimensional Scaling. We provide several sensible distance metrics, and adjustment procedures to remove systematic biases typically observed when merging data obtained under different technologies or genetic backgrounds. We also provide functions and methods to perform differential analysis of epigenome maps at factor and gene level.
