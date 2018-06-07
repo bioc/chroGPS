@@ -920,7 +920,7 @@ domains$Domain <- color2domain[domains$Color]
 rownames(domains) <- domains$Factor
 
 # Compute distances
-mc.cores <- ifelse('parallel' %in% loadedNamespaces(),8,1)
+mc.cores <- ifelse(.Platform$OS.type=='unix',8,1)
 d.s2 <- distGPS(GRangesList(s2.repset),metric='avgdist',mc.cores=mc.cores)
 d.bg3 <- distGPS(GRangesList(bg3.repset),metric='avgdist',mc.cores=mc.cores)
 @ 
