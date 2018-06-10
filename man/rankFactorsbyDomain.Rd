@@ -63,7 +63,7 @@ rownames(s2names) <- s2names$ExperimentName
 # Call rankFactorsbyDomain for HP1a repression domain, select a combination of 4
 # factors
 library(caTools)
-rank.factors.4 <- rankFactorsbyDomain(d,s2names,ranktype='domainDist',selName='Color',selValue='lightblue',k=3,mc.cores=4) # Test HP1a repression
+rank.factors.4 <- rankFactorsbyDomain(d,s2names,ranktype='domainDist',selName='Color',selValue='lightblue',k=3,mc.cores=1) # Test HP1a repression
 ddd <- as.data.frame(do.call(rbind,lapply(rank.factors.4,unlist)))
 ddd <- ddd[order(ddd$intra,decreasing=FALSE),]
 head(ddd)

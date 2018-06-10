@@ -49,7 +49,7 @@ data(s2)
 
 # Unknown domains
 # Perform computation
-glm.rank <- rankFactorsbyProfile(s2.tab,ranktype='glm',glm.threshold=0.75,mc.cores=8)
+glm.rank <- rankFactorsbyProfile(s2.tab,ranktype='glm',glm.threshold=0.75,mc.cores=1)
 
 # Returned objects are lists named by the factor with highest prediction accuracy in each interation, as well as the rest, let's generate a matrix
 library(gtools)
