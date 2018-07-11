@@ -1025,6 +1025,9 @@ computation or reducing the number of iterations if computing power is limited.\
 # Using logistic regression to see how well some factors can be predicted by others
 glm.rank <- rankFactorsbyProfile(s2.tab,ranktype='glm',glm.threshold=0.75,mc.cores=mc.cores)
 
+# List of results indicating which factor is removed (best predicted by the rest) at each iteration
+names(glm.rank)
+
 @ 
 
 \normalsize

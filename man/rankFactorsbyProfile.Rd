@@ -51,15 +51,7 @@ data(s2)
 # Perform computation
 glm.rank <- rankFactorsbyProfile(s2.tab,ranktype='glm',glm.threshold=0.75,mc.cores=1)
 
-# Returned objects are lists named by the factor with highest prediction accuracy in each interation, as well as the rest, let's generate a matrix
-library(gtools)
-glm.rank <- do.call(smartbind,glm.rank)
-
-# Now let's order based on which factor is removed in each iteration
-glm.rank <- glm.rank[,rownames(glm.rank)]
-glm.rank[1:5,1:5]
-
-# And finally some plots...
-boxplot(glm.rank,horizontal=TRUE,lwd=2,ylab='',xlab='Prediction accuracy',names=rownames(glm.rank),col=rainbow(nrow(glm.rank)))
+# Returned objects are lists named by the factor with highest prediction accuracy in each iteration
+names(glm.rank)
 
 }
