@@ -35,13 +35,17 @@
 
 \maketitle
 
+\section{Citation}
+\label{sec:citation}
+
+For citation of the chroGPS package, please use the following reference: \citep{font:2013}.
 
 \section{Introduction}
 \label{sec:intro}
 
 The \texttt{chroGPS} package provides tools to generate and analyze intuitive maps to visualize and compare the association between genetic elements, with emphasis on epigenetics. The approach is based on Multi-Dimensional Scaling, hierarchival clustering and Procrustes. We provide several sensible distance metrics, and adjustment procedures to remove systematic biases typically observed when merging data obtained under different technologies or genetic backgrounds.
 This manual illustrates the software functionality and highlights some ideas,
-for a detailed technical description the reader is referred to the supplementary material on \citep{font:2013} Major changes were introduced in the 2.0 version to account for differential analysis of the generated epigenome maps, as well as additional functions for manipulating genomic interval objects and to use our epigenetic overlap metrics to help in the selection of candidate epigenetic marks for de-novo experiments.
+for a detailed technical description the reader is referred to the supplementary material on \citep{font:2013}. Major changes were introduced in the 2.0 version to account for differential analysis of the generated epigenome maps, as well as additional functions for manipulating genomic interval objects and to use our epigenetic overlap metrics to help in the selection of candidate epigenetic marks for de-novo experiments.
 \\\\
 Many routines allow performing computations in parallel 
 by specifying an argument \texttt{mc.cores}, which uses
@@ -1234,7 +1238,7 @@ Once the combined matrix is obtained, a regular chroGPS$^{genes}$ map is produce
 
 \normalsize
 
-\section{Beyond R: exporting chroGPS maps to Cytoscape, Shiny, plotLy, ...}
+\section{Beyond R: generating interactive chroGPS maps for Cytoscape, plotLy, ...}
 \label{sec:export2Cytoscape}
 
 No doubt R is a wonderful environment, but it has its limitations and
@@ -1252,7 +1256,7 @@ Even if no edges are returned, the exported network keeps the relative
 distribution of elements as seen in chroGPS, in order to keep the
 distances between the original elements intact. For three-dimensional maps Cytoscape 3D Renderer is required.
 \\
-Additionally, all the objects containing the generated maps in 2 and 3 dimensions can be used to obtain the individual graphical coordinates for all points in the map using the provided function \textit{getPoints}, in order to produce custom graphics, or to use the obtained maps in interactive HTML apps using RStudio or Shiny.
+Additionally, all the objects containing the generated maps in 2 and 3 dimensions can be used to obtain the individual graphical coordinates for all points in the map using the provided function \textit{getPoints}, in order to produce custom graphics, or to use the obtained maps in interactive HTML outputs using plotLy.
 
 \footnotesize
 
@@ -1275,6 +1279,29 @@ Additionally, all the objects containing the generated maps in 2 and 3 dimension
 \caption{chroGPS$^{factors}$ network exported and visualized in Cytoscape. Top: 2D. Bottom: 3D.}
 \label{fig:profile1}
 \end{figure}
+
+Or for instance, if we would like to generate an interactive, light and shareable view of our 2D or 3D chroGPS map using PlotLy, we can use the following code as an example.
+
+\footnotesize
+
+<<plotly1>>=
+# Not run
+# Requires Pandoc
+# library(plotly)
+# library(gplots)
+# For instance if mds1.3d contains a valid 3 dimensional chroGPS$^{factors}$ map from our S2 example data.
+# xx <- as.data.frame(getPoints(mds1.3d)
+# colnames(xx) <- c('x','y','z')
+# xx$color <- as.factor(s2names$Color)    
+# ids <- as.character(s2names$Factor)
+# p <- plot_ly(xx,x=~x,y=~y,z=~z,color=~color,colors=col2hex(levels(xx$color)),text=ids) %>%
+# add_markers() %>%
+# layout(title='S2 3D plotLy example',
+#  scene = list(xaxis = list(title = 'X'),
+#  yaxis = list(title = 'Y'),
+#  zaxis = list(title = 'Z')))
+#  htmlwidgets::saveWidget(as_widget(p), "chrogps_3d_plotly.html") # export for offline use, requires pandoc installed
+@
 
 \normalsize
 
