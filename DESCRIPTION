@@ -1,7 +1,7 @@
 Package: chroGPS
 Type: Package
 Title: chroGPS 2.0: Generation, visualization and differential analysis of epigenome maps
-Version: 1.99.2
+Version: 1.99.3
 Date: 2018-05-31
 Author: Oscar Reina, David Rossell
 Maintainer: Oscar Reina <oscar.reina@irbbarcelona.org>
@@ -10,7 +10,7 @@ License: GPL (>=2.14)
 Depends: R (>= 3.2.0), GenomicRanges, IRanges, methods, Biobase, MASS, graphics, stats, changepoint
 #Imports: graphics, cluster, DPpackage, ICSNP
 Imports: cluster, DPpackage, ICSNP, ellipse, vegan
-Enhances: parallel, XML, rgl, gplots, pheatmap, ChIPpeakAnno, org.Dm.eg.db, caTools
+Enhances: parallel, XML, rgl, gplots, pheatmap, ChIPpeakAnno, org.Dm.eg.db, caTools, plotly
 Collate: adjustPeaks.R distGPS.R domainDist.R mds-class.R mds.R procrustesAdj.R clusGPS.R geneSetGPS.R getmodEncode.R gff2RDList.R gps2xgmml.R diffFactors.R diffGenes.R mergeReplicates.R profileClusters.R rankFactorsbyDomain.R rankFactorsbyProfile.R
 LazyLoad: yes
 biocViews: Visualization, Clustering, Mulditimensional Scaling
