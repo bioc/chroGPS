@@ -196,7 +196,7 @@ legend('topright',legend=c('ChIP-Chip','ChIP-Seq'),pch=c(20,17),pt.cex=c(1.5,1))
  
 \normalsize
  
-\setkeys{Gin}{width=0.8\textwidth} 
+\setkeys{Gin}{width=0.5\textwidth} 
 \begin{figure}
 \begin{center}
 <<label=figprocrustes1,fig=TRUE,echo=FALSE>>=
@@ -226,7 +226,7 @@ legend('topright',legend=c('ChIP-Chip','ChIP-Seq'),pch=c(20,17),pt.cex=c(1.5,1))
 @
  
 \normalsize
- 
+
 Peak Width Adjustment relies on the basic difference between the two
 different sources of information used in our case, that is, the
 resolution difference between ChIP-Seq and ChIP-chip peaks, which
