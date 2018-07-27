@@ -233,7 +233,9 @@ resolution difference between ChIP-Seq and ChIP-chip peaks, which
 translates basically in the width presented by the regions identified
 as binding sites, being those peaks usually much wider in ChIP-chip
 data (poorer resolution).
- 
+
+\newpage
+
 \footnotesize
  
 <<figpeakwidth1>>=
