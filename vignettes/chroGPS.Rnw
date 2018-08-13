@@ -177,9 +177,12 @@ S2 ChIP-seq data obtained from NCBI GEO GSE19325, \url{http://www.ncbi.nlm.nih.g
 
 \footnotesize
  
-<<figprocrustes1>>=
+<<figprocrustes0>>=
 data(s2Seq)
 s2Seq
+@ 
+
+<<figprocrustes1>>=
 # d2 <- distGPS(c(reduce(s2),reduce(s2Seq)),metric='avgdist')
 mds2 <- mds(d2,k=2,type='isoMDS')
 cols <- c(as.character(s2names$Color),as.character(s2SeqNames$Color))
@@ -250,8 +253,6 @@ bty='n',cex=1)
 legend('topright',legend=c('ChIP-Chip','ChIP-Seq'),pch=c(20,17),pt.cex=c(1.5,1))
 @
 
-\newpage
- 
 \normalsize
  
 \setkeys{Gin}{width=0.5\textwidth} 
