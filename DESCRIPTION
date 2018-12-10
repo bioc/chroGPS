@@ -1,8 +1,8 @@
 Package: chroGPS
 Type: Package
-Title: chroGPS 2.0: Generation, visualization and differential analysis of epigenome maps
-Version: 2.1.0
-Date: 2018-08-08
+Title: chroGPS2: Generation, visualization and differential analysis of epigenome maps
+Version: 2.1.1
+Date: 2018-12-10
 Author: Oscar Reina, David Rossell
 Maintainer: Oscar Reina <oscar.reina@irbbarcelona.org>
 Description: We provide intuitive maps to visualize, analyze and compare the association between genetic elements based on their epigenetic profiles. The approach is based on Multi-Dimensional Scaling, and includes a parallelized implementation for handling high dimensional datasets. We provide several sensible distance metrics, and adjustment procedures to remove systematic biases typically observed when merging data obtained under different technologies or genetic backgrounds. We also provide functions and methods to perform differential analysis of epigenome maps at factor and gene level.
@@ -13,4 +13,4 @@ Imports: cluster, DPpackage, ICSNP, ellipse, vegan
 Enhances: parallel, XML, rgl, gplots, pheatmap, ChIPpeakAnno, org.Dm.eg.db, caTools, plotly
 Collate: adjustPeaks.R distGPS.R domainDist.R mds-class.R mds.R procrustesAdj.R clusGPS.R geneSetGPS.R getmodEncode.R gff2RDList.R gps2xgmml.R diffFactors.R diffGenes.R mergeReplicates.R profileClusters.R rankFactorsbyDomain.R rankFactorsbyProfile.R
 LazyLoad: yes
-biocViews: Epigenetics, Clustering, ChIPchip, ChIPSeq, HistoneModification, Visualization, DataRepresentation
+biocViews: Epigenetics, Clustering, ChIPchip, ChIPSeq, HistoneModification, Visualization, DataRepresentation, ImmunoOncology
