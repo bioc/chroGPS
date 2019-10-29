@@ -1,7 +1,7 @@
 Package: chroGPS
 Type: Package
 Title: chroGPS2: Generation, visualization and differential analysis of epigenome maps
-Version: 2.3.1
+Version: 2.4.0
 Date: 2019-05-31
 Author: Oscar Reina, David Rossell
 Maintainer: Oscar Reina <oscar.reina@irbbarcelona.org>
